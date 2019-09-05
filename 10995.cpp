@@ -7,9 +7,9 @@ int main(void)
 	cin >> N;
 	
 	for(int i=0; i<N; i++) {
-		if(i%2==0) cout << " ";
+		if(i%2==1) cout << " ";
 		for(int j=0; j<N; j++) {
-			
+			cout << "* ";
 		}
 		cout << "\n";
 	}
