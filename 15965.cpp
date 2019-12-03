@@ -1,30 +1,33 @@
 #include<iostream>
 #include<cmath>
+#include<cstring>
+#include<vector>
 using namespace std;
 
-bool is_prime(unsigned long long int);
+bool prime[7500000];
+vector<int> v;
+
 
 int main(void)
 {
-	unsigned long long int N, prime=2;
+	int N;
+	
+	memset(prime, 1, sizeof(prime));
+	prime[0] = false;
+	prime[1] = false;
+	
+	for(int i=2; i<=sqrt(7500000); i++)
+		if(prime[i])
+			for(int j=i*i; j<=7500000; j+=i)
+				prime[j] = false;
+			
+	
+	for(int i=0; i<7500000; i++)
+		if(prime[i])
+			v.push_back(i);
+	
 	cin >> N;
-	
-	while(N) {
-		if(is_prime(prime)) N--;
-		prime++;
-	}
-	
-	cout << --prime;
+	cout << v[N-1];
 	
 	return 0;
-}
-
-bool is_prime(unsigned long long int n)
-{
-	if(n==2 || n==3 || n==5 || n==7 ) return true;
-	if(n%2==0 || n%3==0 || n%5==0 || n%7==0 ) return false;
-	for(long long int i=7; i<sqrt(n)+1; i+=2) {
-		if(n%i==0) return false;
-	}
-	return true;
 }
