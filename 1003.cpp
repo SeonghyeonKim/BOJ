@@ -1,3 +1,7 @@
+// 피보나치 수열 출력
+// fibo(n) = fibo(n-1) + fibo(n-2)
+// 시간초과(최대 2^40)를 고려하여 dp로 해결
+
 #include <iostream>
 using namespace std;
  
