@@ -1,4 +1,4 @@
-// A-B 
+// A-B 출력
 
 #include<iostream>
 using namespace std;
