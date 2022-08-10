@@ -1,24 +1,24 @@
-#include<iostream>
+#include <iostream>
 using namespace std;
 
-int main(void)
-{
-	char room[10]="";
-	int num[10] = {0, }, set=0;
+int arr[10];
+
+int main(void) {
+	cin.tie(NULL);
+	ios_base::sync_with_stdio(false);
 	
-	cin >> room;
+	int N;
+	cin >> N;
 	
-	for(int i=0; room[i]!='\0'; i++) {
-		num[room[i]-'0']++;
+	for(int i=N; i>0; i/=10) arr[i%10]++;
+	
+	int ans=0;
+	
+	for(int i=0; i<10; i++) {
+		if(i!=6 && i!=9) ans = max(arr[i], ans);
 	}
 	
-	num[6] = (num[6]+num[9]+1)/2;
-	
-	for(int i=0; i<8; i++) {
-		if(set<num[i]) set=num[i];
-	}
-	
-	cout << set;
+	cout << max(ans, (arr[6]+arr[9]+1)/2);
 	
 	return 0;
 }
