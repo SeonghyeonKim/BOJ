@@ -17,9 +17,12 @@ int main(void) {
 						if(c==0) cout << 1;
 						else if(b==0) cout << 2;
 						else if(a==0) cout << 3;
-						else cout << 4;
 						exit(0);	
 					}	
+					if(a>0) {
+						cout << 4;
+						exit(0);
+					}
 				}
 			}
 		}
