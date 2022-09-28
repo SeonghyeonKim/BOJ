@@ -1,26 +1,29 @@
 #include <iostream>
+#include <cmath>
 using namespace std;
 
-int dp[50001];
-
-int min(int a, int b) {
-	return a<b ? a:b;
-}
-
-int main() {
-	cin.tie(NULL);
-	ios_base::sync_with_stdio(false);
-	int n;
-	cin >> n;
+int main(void) {
+	int N;
+	cin >> N;
 	
-	for(int i=1; i<224; i++) dp[i*i]=1;
-	for(int i=2; i<=n; i++) {
-		int temp=987654321;
-		for(int j=1; j*j<=i; j++) temp = min(temp, dp[i-j*j]);
-		dp[i] = temp+1;
+	int cnt[4] = {0,0,0,0};
+	int sn = sqrt(N);
+	
+	for(int a=0; a<=sn; a++) {
+		for(int b=a; b<=sn; b++) {
+			for(int c=b; c<=sn; c++) {
+				for(int d=c; d<=sn; d++) {
+					if(a*a+b*b+c*c+d*d==N) {
+						if(c==0) cout << 1;
+						else if(b==0) cout << 2;
+						else if(a==0) cout << 3;
+						else cout << 4;
+						exit(0);	
+					}	
+				}
+			}
+		}
 	}
-	
-	cout << dp[n];
 	
 	return 0;
 }
