@@ -10,9 +10,8 @@ int main(void) {
 	cin >> s;
 	
 	regex re("(100+1+|01)+");
-	cmatch m;
 	
-	if(regex_match(s.c_str(), m, re)) cout << "SUBMARINE";
+	if(regex_match(s.c_str(), re)) cout << "SUBMARINE";
 	else cout << "NOISE";
 
 	return 0;
