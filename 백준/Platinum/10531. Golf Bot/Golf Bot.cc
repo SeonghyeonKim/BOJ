@@ -32,10 +32,10 @@ void FFT(vector<cpx> &v, bool inv) {
 
             for(int j=0; j<k; j++) {
                 cpx even = v[i+j];
-                cpx odd = v[i+j+k] * z;
+                cpx odd = v[i+j+k];
 
-                v[i+j] = even + odd;
-                v[i+j+k] = even - odd;
+                v[i+j] = even + z*odd;
+                v[i+j+k] = even - z*odd;
 
                 z *= w;
             }
@@ -46,16 +46,21 @@ void FFT(vector<cpx> &v, bool inv) {
         for(int i=0; i<S; i++) v[i] /= S;
 }
 
-vector<cpx> mul(vector<cpx> &v, vector<cpx> &u) {
+vector<int> mul(vector<int> &v, vector<int> &u) {
+    vector<cpx> vc(v.begin(), v.end());
+    vector<cpx> uc(u.begin(), u.end());
+
     int S = 2;
     while(S < v.size() + u.size()) S *= 2;
 
-    v.resize(S); FFT(v, false);
-    u.resize(S); FFT(u, false);
+    vc.resize(S); FFT(vc, false);
+    uc.resize(S); FFT(uc, false);
 
-	vector<cpx> w(S);
-    for(int i=0; i<S; i++) w[i] = v[i]*u[i];
-    FFT(w, true);
+    for(int i=0; i<S; i++) vc[i] *= uc[i];
+    FFT(vc, true);
+
+    vector<int> w(S);
+    for(int i=0; i<S; i++) w[i] = round(vc[i].real());
 
     return w;
 }
@@ -64,18 +69,17 @@ vector<cpx> mul(vector<cpx> &v, vector<cpx> &u) {
 int main(void) {
 	int N, M;
 	cin >> N;
-	vector<cpx> v(200001), u(200001);
-	vector<int> check(200001);
+	vector<int> v(200001), u(200001), check(200001);
 	for(int i=0; i<N; i++) {
 		int tmp;
 		cin >> tmp;
 		
-		v[tmp] = {1,0};
-		u[tmp] = {1,0};
+		v[tmp] = 1;
+		u[tmp] = 1;
 		check[tmp] = 1;
 	}
 	
-	vector<cpx> a = mul(v, u);
+	vector<int> a = mul(v, u);
 	
 	cin >> M;
 	int ans = 0;
@@ -83,7 +87,7 @@ int main(void) {
 		int tmp;
 		cin >> tmp;
 		
-		if(check[tmp]>0 || round(a[tmp].real())>0) ans++;
+		if(check[tmp]==1 || a[tmp] > 0) ans++;
 	}
 	cout << ans;
 	
