@@ -52,8 +52,6 @@ int kruskal(void) {
 	
 	init();
 	
-	sort(v.begin(), v.end(), compare);
-	
 	for(int i=idx; i<v.size(); i++) {
 		if(!findParent(v[i].from, v[i].to)) {
 			sum += v[i].cost;
@@ -80,6 +78,8 @@ int main(void) {
 		
 		v.push_back({x, y, i});
 	}
+	sort(v.begin(), v.end(), compare);
+	
 	
 	for(int i=0; i<K; i++) {
 		cout << kruskal() << " ";
