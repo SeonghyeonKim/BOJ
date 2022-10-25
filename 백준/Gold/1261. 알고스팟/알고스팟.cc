@@ -1,5 +1,6 @@
 #include <iostream>
 #include <deque>
+#include <queue>
 #include <vector>
 using namespace std;
 
@@ -10,6 +11,12 @@ char board[102][102];
 
 struct node {
 	int x, y, c;
+};
+
+struct comp {
+	bool operator () (node a, node b) {
+		return a.c > b.c;	
+	}
 };
 
 int main(void) {
@@ -25,12 +32,12 @@ int main(void) {
 		}
 	}
 	
-	deque<node> d;
-	d.push_back({1,1,0});
+	priority_queue<node, vector<node>, comp> d;
+	d.push({1,1,0});
 	
 	while(!d.empty()) {
-		node cnode = d.front();
-		d.pop_front();
+		node cnode = d.top();
+		d.pop();
 		
 		if(cnode.x==N && cnode.y==M) {
 			cout << cnode.c;
@@ -46,10 +53,10 @@ int main(void) {
 					visited[nx][ny]=1;
 					
 					if(board[nx][ny]=='1') {
-						d.push_back({nx,ny,cnode.c+1});
+						d.push({nx,ny,cnode.c+1});
 					}
 					else {
-						d.push_front({nx,ny,cnode.c});
+						d.push({nx,ny,cnode.c});
 					}
 				}
 			}
