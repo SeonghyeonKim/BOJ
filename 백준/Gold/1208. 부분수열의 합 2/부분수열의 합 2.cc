@@ -1,46 +1,49 @@
 #include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 #include <map>
 using namespace std;
- 
-int N, S;
-int arr[41];
+
+long long N, S, cnt;
+vector<int> v;
 map<int, int> m;
-long long cnt;
- 
-void left(int idx, int sum){
-    if(idx == N/2){
-    	m[sum]++;
-        return;
-    }
-    
-    left(idx+1, sum+arr[idx]);
-    left(idx+1, sum);
-}
- 
-void right(int idx, int sum){
-    if(idx == N){
-    	cnt += m[S-sum];
-        return;
-    }
-    
-    right(idx+1, sum+arr[idx]);
-    right(idx+1, sum);
-}
- 
-int main(){
-	cin.tie(NULL);
-	ios_base::sync_with_stdio(false);
+
+void leftSum(int idx, int sum) {
+	if(idx==N/2) {
+		m[sum]++;
+		return ;
+	}
 	
-    cin >> N >> S;
-    for(int i=0; i<N; i++){
-        cin >> arr[i];
-    }
-    
-    left(0, 0);
-    right(N/2, 0);
-    
-    if(S!=0) cout << cnt;
-    else cout << cnt-1;
-    
-    return 0;
+	leftSum(idx+1, sum);
+	leftSum(idx+1, sum+v[idx]);
+}
+
+void rightSum(int idx, int sum) {
+	if(idx==N) {
+		cnt += m[S-sum];
+		return ;
+	}
+	
+	rightSum(idx+1, sum);
+	rightSum(idx+1, sum+v[idx]);
+}
+
+
+int main() {
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+
+	cin >> N >> S;
+	v.resize(N);
+	
+	for(int i=0; i<N; i++) cin >> v[i];
+	
+	leftSum(0, 0);
+	rightSum(N/2, 0);
+
+	if(!S) cnt--;
+	cout << cnt;
+	
+ 	return 0;
 }
