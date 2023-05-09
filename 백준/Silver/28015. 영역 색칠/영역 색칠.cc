@@ -2,35 +2,35 @@
 #include <vector>
 using namespace std;
 
-int arr[101][101];
-int board[101][101];
-
 int main() {
 	cin.tie(NULL);
 	ios_base::sync_with_stdio(false);
 
-	int a, b;
+	int a, b, ans=0, temp, num, cnt[2]={0,0};
 	cin >> a >> b;
 	
 	for(int i=0; i<a; i++) {
+		temp=0;
+		cnt[0]=0;
+		cnt[1]=0;
+		
 		for(int j=0; j<b; j++) {
-			cin >> arr[i][j];
-		}
-	}
-	
-	int ans =0;
-	for(int i=0; i<a; i++) {		
-		for(int j=0; j<b; j++) {
-			if(board[i][j] != arr[i][j]) {
-				ans++;
+			cin >> num;
+			
+			if(num!=temp && num!=0) {
+				cnt[num-1]++;
+				temp = num;
+			}
+			
+			if(temp!=0 && (num==0 || j==b-1)) {
+				ans+=min(cnt[0], cnt[1])+1;
 				
-				for(int k=j; arr[i][k]!=board[i][k]; k++) {
-					board[i][k] = arr[i][j];
-				}
+				cnt[0]=0;
+				cnt[1]=0;
+				temp=0;
 			}
 		}
 	}
-	
 	cout << ans;
 
     return 0;
