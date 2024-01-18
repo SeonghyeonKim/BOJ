@@ -5,6 +5,7 @@
 #define pii pair<int, int>
 using namespace std;
 
+string t[7] = {"", "Habb Yakk", "Dobara", "Dousa", "Dorgy", "Dabash", "Dosh"};
 string s[7] = {"", "Yakk", "Doh", "Seh", "Ghar", "Bang", "Sheesh"};
 
 int main(void) {
@@ -22,26 +23,7 @@ int main(void) {
 		cout << "Case " << i << ": ";
 		
 		if(a==b) {
-			switch (a) {
-				case 1:
-					cout << "Habb Yakk\n";
-					break;
-				case 2:
-					cout << "Dobara\n";
-					break;
-				case 3:
-					cout << "Dousa\n";
-					break;
-				case 4:
-					cout << "Dorgy\n";
-					break;
-				case 5:
-					cout << "Dabash\n";
-					break;
-				case 6:
-					cout << "Dosh\n";
-					break;	
-			}
+			cout << t[a] << "\n";
 		}
 		else if(a==6 && b==5) {
 			cout << "Sheesh Beesh\n";	
