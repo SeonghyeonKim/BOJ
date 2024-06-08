@@ -1,8 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <string>
 using namespace std;
 
 char board[103][103];
+int dx[] = {1,1,1,0,0,-1,-1,-1};
+int dy[] = {1,0,-1,1,-1,1,0,-1};
+string s = "MOBIS";
 
 int main(void) {
 	cin.tie(NULL);
@@ -21,77 +25,20 @@ int main(void) {
 	for(int i=1; i<=N; i++) {
 		for(int j=1; j<=N; j++) {
 			if(board[i][j]=='M') {
-				if(board[i-1][j-1]=='O') {
-					if(board[i-2][j-2]=='B') {
-						if(board[i-3][j-3]=='I') {
-							if(board[i-4][j-4]=='S') {
-								ans++;
-							}
+				for(int T=0; T<8; T++) {
+					int flag=1;
+					
+					for(int t=1; t<=4; t++) {
+						int nx = i + dx[T]*t;
+						int ny = j + dy[T]*t;
+						
+						if(board[nx][ny] != s[t]) {
+							flag=0;
+							break;
 						}
 					}
-				}
-				if(board[i-1][j]=='O') {
-					if(board[i-2][j]=='B') {
-						if(board[i-3][j]=='I') {
-							if(board[i-4][j]=='S') {
-								ans++;
-							}
-						}
-					}
-				}
-				if(board[i-1][j+1]=='O') {
-					if(board[i-2][j+2]=='B') {
-						if(board[i-3][j+3]=='I') {
-							if(board[i-4][j+4]=='S') {
-								ans++;
-							}
-						}
-					}
-				}
-				if(board[i][j-1]=='O') {
-					if(board[i][j-2]=='B') {
-						if(board[i][j-3]=='I') {
-							if(board[i][j-4]=='S') {
-								ans++;
-							}
-						}
-					}
-				}
-				if(board[i][j+1]=='O') {
-					if(board[i][j+2]=='B') {
-						if(board[i][j+3]=='I') {
-							if(board[i][j+4]=='S') {
-								ans++;
-							}
-						}
-					}
-				}
-				if(board[i+1][j-1]=='O') {
-					if(board[i+2][j-2]=='B') {
-						if(board[i+3][j-3]=='I') {
-							if(board[i+4][j-4]=='S') {
-								ans++;
-							}
-						}
-					}
-				}
-				if(board[i+1][j]=='O') {
-					if(board[i+2][j]=='B') {
-						if(board[i+3][j]=='I') {
-							if(board[i+4][j]=='S') {
-								ans++;
-							}
-						}
-					}
-				}
-				if(board[i+1][j+1]=='O') {
-					if(board[i+2][j+2]=='B') {
-						if(board[i+3][j+3]=='I') {
-							if(board[i+4][j+4]=='S') {
-								ans++;
-							}
-						}
-					}
+					
+					if(flag) ans++;
 				}
 			}
 		}
