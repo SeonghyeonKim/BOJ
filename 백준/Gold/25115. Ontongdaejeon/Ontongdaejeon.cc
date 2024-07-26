@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#include <climits>
 #define ll long long
 #define ld long double
 using namespace std;
@@ -18,7 +17,7 @@ int main() {
 	
 	//sort(v.begin(), v.end(), greater<ll> ());
 	
-	ll left = 0, right = LLONG_MAX;
+	ll left = 0, right = 200000LL * 1000000000;
 	ll ans = right;
 	
 	while(left <= right) {
@@ -30,7 +29,7 @@ int main() {
 		for(int i=0; i<N; i++) {
 			if(r >= v[i]) {
 				r -= v[i];
-				c += v[i]/10.0;
+				c += v[i]/10.0L;
 			}
 			else {
 				if(r+c >= v[i]) {
@@ -38,14 +37,8 @@ int main() {
 						c -= v[i];
 					}
 					else {
-						ll x = v[i] - r;
-						
-						if(x>v[i] || x>c) {
-							flag = 0;
-							break;
-						}
-						
-						c = (c-x) + (v[i]-x)/10.0;
+						ll x = v[i] - r;						
+						c = (c-x) + (v[i]-x)/10.0L;
 						r = 0;
 					}
 				}
